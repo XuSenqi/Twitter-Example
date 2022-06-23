@@ -1,23 +1,102 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import './Settings.css';
+import {Input} from "web3uikit";
+import { defaultImgs } from "../defaultimgs";
+import { useState, useRef} from "react";
+import pfp1 from "../images/pfp1.png";
+import pfp2 from "../images/pfp2.png";
+import pfp3 from "../images/pfp3.png";
+import pfp4 from "../images/pfp4.png";
+import pfp5 from "../images/pfp5.png";
 
 
 const Settings = () => {
-  
+  const [selectedPFP, setSelectedPFP] = useState();
+  const [selectedFile, setSelectedFile] = useState(defaultImgs[1]);
+  const [theFile, setTheFile] = useState();
+  const inputFile = useRef(null);
+  const [username, setUsername] = useState();
+  const [bio, setBio] = useState();
+  const pfps = [pfp1,pfp2,pfp3,pfp4,pfp5]; 
+
+  const onBannerClick = () => {
+    inputFile.current.click();
+  };
+
+  const changeHandler = (event) => {
+    const img = event.target.files[0];
+    setTheFile(img);
+    setSelectedFile(URL.createObjectURL(img));
+  };
+
+  const saveEdits = async () => {
+    
+  }
 
   return (
     <>
-    <Link to="/">
-        <div>Home</div>
-      </Link>
-      <Link to="/profile">
-        <div>Profile</div>
-      </Link>
+      <div className="pageIdentify">Settings</div>
 
-      <Link to="/settings">
-        <div>Settings</div>
-      </Link>
+      <div className="settingsPage">
+        <Input
+          label="Name"
+          name="NameChange"
+          width="100%"
+          labelBgColor="#141d26"
+          value="name"
+          // onChange={(e)=> setUsername(e.target.value)}
+        />
+
+        <Input
+          label="Bio"
+          name="bioChange"
+          width="100%"
+          labelBgColor="#141d26"
+          value="Coding with Filecoin"
+          // onChange={(e) => setBio(e.target.value)}
+        />
+
+        <div className="pfp">
+          Profile Image (Your NFTs)
+          <div className="pfpOptions">
+            {
+              pfps.map((e,i)=>{
+                return(
+                <>
+                  <img src={e} 
+                      className={selectedPFP === e ? "pfpOptionSelected":"pfpOption"} 
+                      onClick={()=>setSelectedPFP(pfps[i])}>
+                  </img>
+                </>
+                )
+              })
+            }
+          </div>
+        </div>
+
+        <div className="pfp">
+          Profile Banner
+          <div className="pfpOptions">
+            <img
+              src={selectedFile}
+              onClick={onBannerClick}
+              className="banner"
+            ></img>
+            <input
+              type="file"
+              name="file"
+              ref={inputFile}
+              onChange={changeHandler}
+              style={{ display: "none" }}
+            />
+          </div>
+        </div>
+
+        <div className="save" onClick={()=>saveEdits()}>
+          Save
+        </div>
+
+      </div>
 
     </>
   );

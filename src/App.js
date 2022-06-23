@@ -4,11 +4,22 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import "./App.css";
+import Sidebar from "./components/Sidebar";
+import Rightbar from "./components/Rightbar";
 
 const App = () => {
 
   return (
     <>
+     <div className="page">
+          <div className="sideBar">
+            <Sidebar />
+            <div className="logout"
+              onClick={()=>{
+              }}> 
+              Logout
+            </div>
+          </div>
           <div className="mainWindow">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -16,6 +27,10 @@ const App = () => {
               <Route path="/settings" element={<Settings />} />
             </Routes>
           </div>
+          <div className="rightBar">
+            <Rightbar/>
+          </div>
+    </div>
     </>
   );
 };
