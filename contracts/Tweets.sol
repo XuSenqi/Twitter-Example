@@ -27,7 +27,8 @@ contract Tweets {
     mapping(uint256 => tweet) tweets;
 
     function addTweet(string memory text, string memory img)public payable{
-        require(msg.value == (0.1 ether), "please submit 0.1 matic");
+        //require(msg.value == (0.1 ether), "please submit 0.1 matic");
+        require(msg.value == (0.000000000000000001 ether), "please submit 1 Wei");   //1以太币= 10^18 Wei
         tweet storage newTweet = tweets[counter];
         newTweet.tweetText = text;
         newTweet.tweetImg = img;
